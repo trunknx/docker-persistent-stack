@@ -1,44 +1,20 @@
 version: '2'
 
 services:
-    mongo:
-        container_name: mongo
-        image: mongo:latest
-        volumes:
-            - ./data/mongo:/data/db
-        user: "${UID_GID}"
-        ports:
-            - "27017:27017"
-        networks:
-            - common
-        restart: always    
-
-    redis:
-        container_name: redis
-        image: redis:alpine
-        command: ["redis-server", "--appendonly", "yes"]
-        volumes:
-            - ./data/redis:/data
-        user: "${UID_GID}"
-        ports:
-            - "6379:6379"
-        networks:
-            - common
-        restart: always
-
-    mysql:
-        container_name: mysql
-        image: mysql:5.7
-        volumes:
-            - ./data/mysql:/var/lib/mysql
-        user: "${UID_GID}"
-        ports:
-            - "3306:3306"
-        environment:
-            MYSQL_ROOT_PASSWORD: 'justapassword'
-        networks:
-            - common
-        restart: always
+    mongo-rs:
+            container_name: mongo-rs
+            image: docker-mongo-local-replicaset:latest
+            hostname: mongo-rs
+            volumes:
+                - ./data/mongo-rs:/data
+            user: "${UID_GID}"
+            ports:
+                - "27017:27017"
+                - "27018:27018"
+                - "27019:27019"
+            networks:
+                - common
+            restart: always
 
 networks:
     common:
