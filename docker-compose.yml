@@ -3,7 +3,7 @@ version: '2'
 services:
     mongo-rs:
             container_name: mongo-rs
-            image: docker-mongo-local-replicaset:latest
+            image: ndtrung95/mongo-local-replicaset:lastest
             hostname: mongo-rs
             volumes:
                 - ./data/mongo-rs:/data
@@ -15,6 +15,20 @@ services:
             networks:
                 - common
             restart: always
-
+        # All option with comment is optional, to use it, just uncomment it
+    redis:
+        container_name: redis
+        image: redis:alpine
+        command: ["redis-server", "--appendonly", "yes"]
+        volumes:
+            - ./data/redis:/data
+            # If you want to custom redis config, edit file in config folder and uncomment following line
+            # - ./config/redis/redis.conf:/usr/local/etc/redis/redis.conf
+        user: "${UID_GID}"
+        ports:
+            - "6379:6379"
+        networks:
+            - common
+        restart: always
 networks:
     common:

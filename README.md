@@ -17,7 +17,7 @@ It's easy, just follow these steps:
 
 **Clone this repository:**
 ```bash
-$ git clone https://github.com/minhpq331/docker-persistent-stack.git
+$ git clone https://github.com/trunknx/docker-persistent-stack
 $ cd docker-persistent-stack
 ```
 
